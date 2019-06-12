@@ -4,7 +4,7 @@
 
 DotnetScriptX is a project template / starter kit for the [dotnet-script](https://github.com/filipw/dotnet-script) tool. It provides the following additional features:
 
-:heavy_check_mark: Framework for writing and maintaining multiple asynchronous scripts with a default option for single script mode if you feel like it
+:heavy_check_mark: Loosely opinionated project template for writing and maintaining multiple asynchronous scripts with a default option for single script mode if you feel like it
 
 :heavy_check_mark: Full blown Dependency Injection for scripting
 
@@ -12,13 +12,11 @@ DotnetScriptX is a project template / starter kit for the [dotnet-script](https:
 
 :heavy_check_mark: JSON based Application Configuration for scripts with environment specific overrides (e.g.: appsettings.prod.json) 
 
-:heavy_check_mark: Script Execution Context with Current Script Path, Environment (Dev, Prod), OS detection helpers
-
-:heavy_check_mark: Standard configuration driven (with Console appender) ILogger<> conveniently pre-registered for DI
+:heavy_check_mark: Script Execution Context with Current Script Path, Environment (Dev, Prod), OS detection helpers, and a standard configuration driven ILogger<> conveniently pre-registered for DI
 
 ## Quickstart
 
-1. Download the latest template from the [releases](https://gitlab.com/harindaka/dotnetscriptstarterpack) section.
+1. Download the latest template from the [releases](https://github.com/harindaka/DotnetScriptX/releases) section.
 2. Extract the zip file and open a command prompt / terminal inside the extracted folder. The template includes two sample commands in the `commands` folder named `HelloWorldCommand.csx` and `UsageCommand.csx` for convenience. You can refer these when adding more commands which contains your own logic.
 3. Execute the following command to view usage:
 
@@ -31,7 +29,7 @@ DotnetScriptX is a project template / starter kit for the [dotnet-script](https:
     ./run
     ```
 
-4. Seriously that's it! The aforementioned command will execute the default script command wired up for execution in `Startup.csx`. It will also try to detect and install [dotnet-script](https://github.com/filipw/dotnet-script) if not installed already. At this point refer the `commands/UsageCommand.csx` to see how it works. 
+4. Seriously that's it! The aforementioned command will execute the default script command wired up for execution in `Startup.csx`. It will also try to detect and install [dotnet-script](https://github.com/filipw/dotnet-script) if not installed already. Tip: You may refer the `commands/UsageCommand.csx` to see how it works. 
 
 As you may have already guessed, the DotnetScriptX template allows you to write and maintain multiple scripts in the same project folder in the form of `commands` (`IScriptCommand` implementations) 
 
@@ -153,9 +151,9 @@ Note that certain services such as `ILogger` and `IExecutionContext` are pre-reg
 
 ## Application Configuration
 
-You can manage configuration settings using `appsettings.json` files in the usual way with support for environment specific overrides as well. To add a setting
+You can manage configuration settings using `appsettings.json` files in the usual way with support for environment specific overrides as well. To add a setting,
 
-1. Edit the provided `appsettings.json` and place your settings as json objects.
+1. Edit the provided `appsettings.json` and place your settings as a json object.
 2. Change the provided `AppSettings` class to match.
 3. Inject the `AppSettings` type into your command as a constructor parameter. Voila! Type safe application settings for your script!
 
