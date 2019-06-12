@@ -1,0 +1,16 @@
+#!/bin/bash
+
+set -e
+
+if ! type "dotnet" > /dev/null 2>/dev/null; then
+    echo The .Net Runtime is required to run this script. Please install it and try again...
+    exit 1
+fi
+
+if ! type "dotnet-script" > /dev/null 2>/dev/null; then
+    echo Installing dotnet-script tool... 
+    dotnet tool install -g dotnet-script
+    echo -en '\n'
+fi
+
+exec dotnet script dsx/Program.csx "$@"
