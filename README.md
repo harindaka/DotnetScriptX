@@ -16,8 +16,8 @@ DotnetScriptX is a project template / starter kit for the [dotnet-script](https:
 
 ## Quickstart
 
-1. Download the latest template from the [releases](https://github.com/harindaka/DotnetScriptX/releases) section.
-2. Extract the zip file and open a command prompt / terminal inside the extracted folder. The template includes two sample commands in the `commands` folder named `HelloWorldCommand.csx` and `UsageCommand.csx` for convenience. You can refer these when adding more commands which contains your own logic.
+1. Download the latest project template (Source code archive) from the [releases](https://github.com/harindaka/DotnetScriptX/releases) section.
+2. Extract the downloaded archive and open a command prompt / terminal inside the extracted folder. The template includes two sample commands in the `commands` folder named `HelloWorldCommand.csx` and `UsageCommand.csx` for convenience. You can refer these when adding more commands which contains your own logic.
 3. Execute the following command to view usage:
 
     Windows: 
