@@ -79,7 +79,7 @@ public void ConfigureCommands(IScriptCommandCollection commands)
     ./run your-command
     ```
 
-## Single Script Mode
+## Default Command
 
 Note that inside the `Startup.csx`'s `ConfigureCommands` method, you can specify a default command to get executed when `run` is executed without any arguments. This is done using the `commands.RegisterDefault` method like so:
 
