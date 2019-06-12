@@ -79,6 +79,19 @@ public void ConfigureCommands(IScriptCommandCollection commands)
     ./run your-command
     ```
 
+## Single Script Mode
+
+Note that inside the `Startup.csx`'s `ConfigureCommands` method, you can specify a default command to get executed when `run` is executed without any arguments. This is done using the `commands.RegisterDefault` method like so:
+
+```
+public void ConfigureCommands(IScriptCommandCollection commands)
+{
+    commands.RegisterDefault<YourCommand>();  
+}
+```
+
+As in the example above, if you register `YourCommand` as the default command, when `run` is executed without parameters, `YourCommand` will get invoked. This is a good option if all you need is a quick way to execute a single script with a simple `run` command.
+
 ## Passing Arguments
 
 1. You can pass command-line arguments to your commands with the `run` command like so:
