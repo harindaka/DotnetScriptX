@@ -12,7 +12,7 @@ DotnetScriptX is a project template / starter kit for the [dotnet-script](https:
 
 :heavy_check_mark: JSON based Application Configuration for scripts with environment specific overrides (e.g.: appsettings.prod.json) 
 
-:heavy_check_mark: Script Execution Context with Current Script Path, Environment (Dev, Prod), OS detection helpers, and a standard configuration driven ILogger<> conveniently pre-registered for DI
+:heavy_check_mark: Script Execution Context with Current Command Name, Script Path, Environment (Dev, Prod), OS detection helpers, and a configuration driven [Serilog](https://github.com/serilog/serilog) ILogger conveniently pre-registered for DI
 
 ## Quickstart
 
@@ -150,7 +150,7 @@ Registered services would be automatically injected into your `IScriptCommand` i
 ```
 public YourCommand(
         AppSettings appSettings,
-        ILogger<HelloWorldCommand> logger,
+        ILogger logger,
         IExecutionContext context
     )
 {        
@@ -160,7 +160,7 @@ public YourCommand(
 }
 ```
 
-Note that certain services such as `ILogger` and `IExecutionContext` are pre-registered for convenience.
+Note that certain services such as `IExecutionContext` are pre-registered for convenience.
 
 ## Application Configuration
 
@@ -252,12 +252,13 @@ public class YourCommand
 }
 ```
 
-| IExecutionContext Member| Description       |
-| --------------------------| ------------------|
-| `ScriptEnvironment`         | Returns the script environment under which the script is currently running. (The value specified by the `DSX_ENVIRONMENT` environment variable)|
+| IExecutionContext Member | Description |
+| -------------------------- | ------------------ |
+| `CommandName`| Returns the current script command name |
+| `ScriptEnvironment`| Returns the script environment under which the script is currently running. (The value specified by the `DSX_ENVIRONMENT` environment variable) |
 | `IsOSPlatform(OSPlatform platform)`| Allows checking whether the current OS is one of the System.Runtime.InteropServices.OSPlatform values |
-| `GetScriptFilePath()`| Returns the current script command file path
-| `GetScriptFilePath()`| Returns the current script command file path|
+| `GetScriptFilePath()`| Returns the current script command file path |
+| `GetScriptFilePath()`| Returns the current script command file path |
 
 Enjoy!
 

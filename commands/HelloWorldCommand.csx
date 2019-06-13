@@ -31,7 +31,7 @@ public class HelloWorldCommand: IScriptCommand
         var scriptPath = context.GetScriptFilePath();
         logger.Information("{0} command started", context.CommandName);
 
-        Console.WriteLine("Hello World!\n");
+        Console.WriteLine("Hello World!");
         
         if(String.IsNullOrEmpty(context.ScriptEnvironment))
         {
