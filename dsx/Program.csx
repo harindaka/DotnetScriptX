@@ -26,9 +26,13 @@ public class Program
             commandName = args[0];
         }
 
-        IExecutionContext context = new ExecutionContext(commandName, Environment.GetEnvironmentVariable("DSX_ENVIRONMENT") ?? String.Empty);
+        IExecutionContext context = new ExecutionContext(
+            commandName,
+            Environment.GetEnvironmentVariable("DSX_ENVIRONMENT") ?? String.Empty
+            );
+
         var appConfig = AppSettingsFactory.CreateInstance(context);
-        var startup = new Startup(appConfig);
+        var startup = new Startup(context, appConfig);
 
         IServiceCollection services = new ServiceCollection();
 
