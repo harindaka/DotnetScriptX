@@ -1,22 +1,23 @@
+#r "nuget: Serilog, 2.8.0"
 #r "nuget: Newtonsoft.Json, 12.0.2"
 
 #load "../dsx/IScriptCommand.csx"
 #load "../dsx/IExecutionContext.csx"
 #load "../AppSettings.csx"
 
-using Microsoft.Extensions.Logging;
+using Serilog;
 using Newtonsoft.Json;
 using System.Threading.Tasks;
 
 public class HelloWorldCommand: IScriptCommand
 {
     private readonly IExecutionContext context;
-    private readonly ILogger<HelloWorldCommand> logger;
+    private readonly ILogger logger;
     private readonly AppSettings appSettings;
 
     public HelloWorldCommand(
         AppSettings appSettings,
-        ILogger<HelloWorldCommand> logger,
+        ILogger logger,
         IExecutionContext context
         )
     {
@@ -27,28 +28,32 @@ public class HelloWorldCommand: IScriptCommand
 
     public Task ExecuteAsync(string[] args)
     {
-        Console.WriteLine("Hellow World!\n");
+        var scriptPath = context.GetScriptFilePath();
+        logger.Information("{0} command started", context.CommandName);
+
+        Console.WriteLine("Hello World!");
         
         if(String.IsNullOrEmpty(context.ScriptEnvironment))
         {
-            logger.LogDebug("The script environment (DSX_ENVIRONMENT) is not specified");
+            logger.Debug("The script environment (DSX_ENVIRONMENT) is not specified");
         }
         else
         {
-            logger.LogDebug($"The script environment (DSX_ENVIRONMENT) is: {context.ScriptEnvironment}");
+            logger.Debug($"The script environment (DSX_ENVIRONMENT) is: {context.ScriptEnvironment}");
         }
 
         if(args.Length > 0)
         {
-            logger.LogDebug($"Command arguments: {String.Join(", ", args)}");
+            logger.Debug($"Command arguments: {String.Join(", ", args)}");
         }
-
-        var scriptPath = context.GetScriptFilePath();
-        logger.LogDebug($"Current script path is:\n      {scriptPath}");
+        
+        logger.Debug($"Current script path is:\n{scriptPath}");
 
         var appSettingsJson = JsonConvert.SerializeObject(appSettings, Formatting.Indented);
-        logger.LogDebug($"Your current configuration is displayed below:\n      {appSettingsJson}");
+        logger.Debug($"Your current configuration is displayed below:\n{appSettingsJson}");
         
+        logger.Information("{0} command stopped", context.CommandName);
+
         return Task.CompletedTask;
     }
 }

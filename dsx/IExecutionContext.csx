@@ -3,6 +3,7 @@ using System.Runtime.InteropServices;
 
 public interface IExecutionContext
 {
+    string CommandName { get; }
     string ScriptEnvironment { get; }
     bool IsOSPlatform(OSPlatform platform);
     string GetScriptFilePath([CallerFilePath] string file = "");
