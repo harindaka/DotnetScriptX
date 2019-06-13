@@ -6,6 +6,7 @@ using System.IO;
 
 public class ExecutionContext: IExecutionContext
 {
+    public string CommandName { get; private set; }
     public string ScriptEnvironment { get; private set; }
 
     public bool IsOSPlatform(OSPlatform platform)
@@ -13,8 +14,9 @@ public class ExecutionContext: IExecutionContext
         return RuntimeInformation.IsOSPlatform(platform);
     }
 
-    public ExecutionContext(string environment)
+    public ExecutionContext(string commandName, string environment)
     {
+        this.CommandName = commandName;
         this.ScriptEnvironment = environment;
     }
 
