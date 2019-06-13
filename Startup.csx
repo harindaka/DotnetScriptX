@@ -1,4 +1,8 @@
 #r "nuget: Microsoft.Extensions.Configuration.Binder, 2.2.0"
+#r "nuget: Serilog, 2.8.0"
+#r "nuget: Serilog.Sinks.Console, 3.1.1"
+#r "nuget: Serilog.Sinks.File, 4.0.0"
+#r "nuget: Serilog.Settings.Configuration, 3.1.0"
 
 #load "dsx/IScriptCommandCollection.csx"
 #load "commands/HelloWorldCommand.csx"
@@ -6,6 +10,8 @@
 
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Serilog;
+using Serilog.Settings.Configuration;
 
 public class Startup
 {
@@ -34,6 +40,12 @@ public class Startup
     public void ConfigureServices(IServiceCollection services)
     {
         var appSettings = configuration.Get<AppSettings>();
-        services.AddSingleton<AppSettings>(appSettings);        
+        services.AddSingleton<AppSettings>(appSettings); 
+
+        var logger = new LoggerConfiguration()
+                            .ReadFrom.Configuration(configuration)
+                            .CreateLogger();
+        
+        services.AddSingleton<ILogger>(logger);
     }
 }
