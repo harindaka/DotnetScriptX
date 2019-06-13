@@ -15,10 +15,15 @@ using Serilog.Settings.Configuration;
 
 public class Startup
 {
+    private readonly IExecutionContext context;
     private readonly IConfiguration configuration;
     
-    public Startup(IConfiguration configuration)
+    public Startup(
+        IExecutionContext context, 
+        IConfiguration configuration
+        )
     {
+        this.context = context;
         this.configuration = configuration;
     }
 
@@ -39,11 +44,19 @@ public class Startup
 
     public void ConfigureServices(IServiceCollection services)
     {
+        // Deserializes the IConfigurationRoot to the AppSettings POCO
+        // and registers it with DI
         var appSettings = configuration.Get<AppSettings>();
         services.AddSingleton<AppSettings>(appSettings); 
 
+        // Sets up Serilog using the configuration specified in appsettings.json
+        // If you'd rather use a different logger remove this
+        var thisProcess = System.Diagnostics.Process.GetCurrentProcess();
         var logger = new LoggerConfiguration()
                             .ReadFrom.Configuration(configuration)
+                            .Enrich.WithProperty("CommandName", context.CommandName)
+                            .Enrich.WithProperty("ProcessId", thisProcess.Id)
+                            .Enrich.WithProperty("Environment", context.ScriptEnvironment)
                             .CreateLogger();
         
         services.AddSingleton<ILogger>(logger);
