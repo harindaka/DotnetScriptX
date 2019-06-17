@@ -1,12 +1,15 @@
 FROM mcr.microsoft.com/dotnet/core/sdk:2.1 AS base
-WORKDIR /app 
-COPY . .
-
-# RUN apk update \
-#    && apk add --no-cache curl \ 
-#    && apk add jq \
-#    && rm -rf /var/cache/apk/*
+RUN mkdir /src
+COPY . /src
 
 RUN dotnet tool install -g dotnet-script
+ENV PATH="${PATH}:/root/.dotnet/tools"
 
-CMD ["sh", "run", "hello-world"]
+RUN dotnet script publish /src/dsx/Program.csx -o /app
+RUN rm -rf /src
+
+ENV DSX_ENVIRONMENT ""
+
+WORKDIR /app
+
+ENTRYPOINT [ "script.exe" ]
