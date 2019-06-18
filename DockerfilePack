@@ -1,0 +1,14 @@
+FROM mcr.microsoft.com/dotnet/core/sdk:2.1 AS base
+RUN mkdir /src
+COPY . /src
+
+RUN dotnet tool install -g dotnet-script
+ENV PATH="${PATH}:/root/.dotnet/tools"
+
+RUN dotnet script publish /src/dsx/Program.csx -o /app
+
+ENV DSX_ENVIRONMENT ""
+
+WORKDIR /app
+
+ENTRYPOINT [ "/app/script" ]
