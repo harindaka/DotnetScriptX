@@ -1,0 +1,3 @@
+@echo off
+
+docker run -it -v %~dp0:/app -e DSX_ENVIRONMENT=%DSX_ENVIRONMENT% --rm --name dsx-bash-container dsx-bash-image

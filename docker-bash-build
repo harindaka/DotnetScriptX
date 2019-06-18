@@ -1,0 +1,4 @@
+#!/bin/bash
+
+docker rmi dsx-bash-image
+docker build -t dsx-bash-image -f DockerfileBash .
