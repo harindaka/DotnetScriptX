@@ -14,7 +14,7 @@ DotnetScriptX is a project template / starter kit for the [dotnet-script](https:
 
 :heavy_check_mark: Script Execution Context with Current Command Name, Script Path, Environment (Dev, Prod), OS detection helpers, and a configuration driven [Serilog](https://github.com/serilog/serilog) ILogger conveniently pre-registered for DI
 
-:heavy_check_mark: Docker Support! Run or package your scripts inside a linux container with just a couple of commands. Read on.
+:heavy_check_mark: Docker Support! Run or package your scripts inside a linux container with just a couple of commands.
 
 ## Quickstart
 
@@ -262,17 +262,14 @@ public class YourCommand
 | `GetScriptFilePath()`| Returns the current script command file path |
 | `GetScriptFilePath()`| Returns the current script command file path |
 
-Enjoy!
 
 ## Docker Support
 
 You need to have docker installed (doh). There are two ways you can run your commands using docker.
 
-1. Using the bash prompt inside a container (DockerfileBash): `Quick Image Build -> Slow Initial Command Execution -> Fast Subsequent Command Executions`
-This approach is great if you are in development mode and quickly need a bash prompt to test out your changes without building a docker image and running it each time.
+1. Using the bash prompt inside a container (DockerfileBash): `Quick Image Build -> Slow Initial Command Execution -> Fast Subsequent Command Executions`. This approach is great if you are in development mode and quickly need a bash prompt to test out your changes without building a docker image and running it each time.
 
-2. Package everything into a self contained docker image: `Slow Image Build -> Super Fast Command Execution`. 
-This approach is a good fit for production environment where you want to build a docker image containing all your scripts and dependencies and deploy it into docker swarm, etc.
+2. Package everything into a self contained docker image (DockerfilePack): `Slow Image Build -> Super Fast Command Execution`. This approach is a good fit for production environment where you want to build a docker image containing all your scripts and dependencies and deploy it into docker swarm, etc.
 
 ###  Using the bash prompt inside a container
 
@@ -300,7 +297,7 @@ This approach is a good fit for production environment where you want to build a
 
 3. You will be placed inside the bash prompt of the container. The above command maps your current project folder to the containers `/app` directory. From there you can run dsx in the usual manner mentioned previously. For e.g.:
 
-`./run hello-world arg1 arg2 arg3`
+    `./run hello-world arg1 arg2 arg3`
 
 ### Package everything into a self contained docker image
 
@@ -315,7 +312,7 @@ This approach is a good fit for production environment where you want to build a
     ./docker-pack-build
     ```
 
-2. You can run a short lived container per command in this mode by issuing the following. Note that you can specify the command or any arguments as well
+2. You can run a short lived container per command in this mode. Commands and optionally arguments are specified as follows:
 
     Windows: 
     ```
@@ -323,7 +320,7 @@ This approach is a good fit for production environment where you want to build a
     ```
     Linux/MacOS:
     ```
-    ./docker-bash-run your-command arg1 arg2 arg3
+    ./docker-pack-run your-command arg1 arg2 arg3
     ```
 
 Feel free to edit the included dockerfiles `DockerfileBash` and `DockerfilePack` along with the corresponding bat / bash scripts to achieve what you need. E.g.: You can mount host directories as docker volumes inside the container to have access to the host file system.
