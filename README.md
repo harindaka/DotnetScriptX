@@ -14,6 +14,8 @@ DotnetScriptX is a project template / starter kit for the [dotnet-script](https:
 
 :heavy_check_mark: Script Execution Context with Current Command Name, Script Path, Environment (Dev, Prod), OS detection helpers, and a configuration driven [Serilog](https://github.com/serilog/serilog) ILogger conveniently pre-registered for DI
 
+:heavy_check_mark: Docker Support! Run or package your scripts inside a linux container with just a couple of commands. Read on.
+
 ## Quickstart
 
 1. Download the latest project template (Source code archive) from the [releases](https://github.com/harindaka/DotnetScriptX/releases) section.
@@ -324,7 +326,7 @@ This approach is a good fit for production environment where you want to build a
     ./docker-bash-run your-command arg1 arg2 arg3
     ```
 
-Feel free to edit the dockerfiles `DockerfileBash` and `DockerfilePack` along with the corresponding bat / bash scripts to achieve what you need. 
+Feel free to edit the included dockerfiles `DockerfileBash` and `DockerfilePack` along with the corresponding bat / bash scripts to achieve what you need. E.g.: You can mount host directories as docker volumes inside the container to have access to the host file system.
 
 ## License
 MIT
