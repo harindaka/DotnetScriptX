@@ -262,8 +262,74 @@ public class YourCommand
 
 Enjoy!
 
+## Docker Support
+
+You need to have docker installed (doh). There are two ways you can run your commands using docker.
+
+1. Using the bash prompt inside a container (DockerfileBash): `Quick Image Build -> Slow Initial Command Execution -> Fast Subsequent Command Executions`
+This approach is great if you are in development mode and quickly need a bash prompt to test out your changes without building a docker image and running it each time.
+
+2. Package everything into a self contained docker image: `Slow Image Build -> Super Fast Command Execution`. 
+This approach is a good fit for production environment where you want to build a docker image containing all your scripts and dependencies and deploy it into docker swarm, etc.
+
+###  Using the bash prompt inside a container
+
+1. Run the following command. This will build a docker image with the dotnet-script tool installed.
+
+    Windows: 
+    ```
+    docker-bash-build
+    ```
+    Linux/MacOS:
+    ```
+    ./docker-bash-build
+    ```
+
+2. Start a container based on the image you just built with the following command.
+
+    Windows: 
+    ```
+    docker-bash-run
+    ```
+    Linux/MacOS:
+    ```
+    ./docker-bash-run
+    ```
+
+3. You will be placed inside the bash prompt of the container. The above command maps your current project folder to the containers `/app` directory. From there you can run dsx in the usual manner mentioned previously. For e.g.:
+
+`./run hello-world arg1 arg2 arg3`
+
+### Package everything into a self contained docker image
+
+1. Run the following command. This will build a docker image including a copy of all the files in your current project directory inside it. It will also compile your scripts, publish them within the container and install the dotnet-script tool to ensure fast command execution.
+
+    Windows: 
+    ```
+    docker-pack-build
+    ```
+    Linux/MacOS:
+    ```
+    ./docker-pack-build
+    ```
+
+2. You can run a short lived container per command in this mode by issuing the following. Note that you can specify the command or any arguments as well
+
+    Windows: 
+    ```
+    docker-pack-run your-command arg1 arg2 arg3
+    ```
+    Linux/MacOS:
+    ```
+    ./docker-bash-run your-command arg1 arg2 arg3
+    ```
+
+Feel free to edit the dockerfiles `DockerfileBash` and `DockerfilePack` along with the corresponding bat / bash scripts to achieve what you need. 
+
 ## License
 MIT
+
+Hope this helps. If you find this useful don't forget the to spread the word!
 
 
 
